@@ -14,12 +14,12 @@ namespace NameLuckMapper.Services
             DateTime.TryParse(payload.Datetime.ToString(), out DateTime parsedDate);
             Dictionary<char, int> letterToNumberMap = new Dictionary<char, int>
             {
-            {'A', 1}, {'B', 2}, {'C', 3}, {'D', 4}, {'E', 5}, {'U', 6}, {'O', 7}, {'F', 8},
-            {'I', 1}, {'K', 2}, {'G', 3}, {'M', 4}, {'H', 5}, {'V', 6}, {'Z', 7}, {'P', 8},
-            {'J', 1}, {'R', 2}, {'L', 3}, {'T', 4}, {'N', 5}, {'W', 6},
-            {'Y', 1}, {'S', 2}, {'X', 3},
-            {'Q', 1}
-            };
+{'A', 1}, {'B', 2}, {'C', 3}, {'D', 4}, {'E', 5}, {'U', 6}, {'O', 7}, {'F', 8},
+{'I', 1}, {'K', 2}, {'G', 3}, {'M', 4}, {'H', 5}, {'V', 6}, {'Z', 7}, {'P', 8},
+{'J', 1}, {'R', 2}, {'L', 3}, {'T', 4}, {'N', 5}, {'W', 6},
+{'Y', 1},                               {'X', 5},
+{'Q', 1},           {'S', 3}
+};
 
             string input = payload.Name;
             List<int> numbers = MapLettersToNumbers(input, letterToNumberMap);
