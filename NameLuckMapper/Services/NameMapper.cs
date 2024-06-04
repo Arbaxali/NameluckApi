@@ -10,10 +10,11 @@ namespace NameLuckMapper.Services
         public static JObject  Mapper(NameDobModel payload)
         {
             JObject Finalres = new JObject();
-            var datetime = payload.Datetime;
-            DateTime.TryParse(payload.Datetime.ToString(), out DateTime parsedDate);
-            Dictionary<char, int> letterToNumberMap = new Dictionary<char, int>
-            {
+var datetime = payload.Datetime.ToString();
+DateTime dt = DateTime.ParseExact(datetime, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+//DateTime.TryParse(payload.Datetime.ToString(), out DateTime parsedDate);
+Dictionary<char, int> letterToNumberMap = new Dictionary<char, int>
+{
 {'A', 1}, {'B', 2}, {'C', 3}, {'D', 4}, {'E', 5}, {'U', 6}, {'O', 7}, {'F', 8},
 {'I', 1}, {'K', 2}, {'G', 3}, {'M', 4}, {'H', 5}, {'V', 6}, {'Z', 7}, {'P', 8},
 {'J', 1}, {'R', 2}, {'L', 3}, {'T', 4}, {'N', 5}, {'W', 6},
@@ -21,14 +22,13 @@ namespace NameLuckMapper.Services
 {'Q', 1},           {'S', 3}
 };
 
-            string input = payload.Name;
-            List<int> numbers = MapLettersToNumbers(input, letterToNumberMap);
-            int SumofName = GetSingleDigitSum(numbers);
-            JArray pyramidStructure = new JArray();
-            pyramidStructure.Add(new JArray(numbers));
-            int dobSum = 0;
-            dobSum = SumAndReduceDateDigits(parsedDate);
-            while (numbers.Count > 1)
+string input = payload.Name;
+List<int> numbers = MapLettersToNumbers(input, letterToNumberMap);
+int SumofName = GetSingleDigitSum(numbers);
+JArray pyramidStructure = new JArray();
+pyramidStructure.Add(new JArray(numbers));
+int dobSum = 0;
+dobSum = SumAndReduceDateDigits(dt);            while (numbers.Count > 1)
             {
                 List<int> newRow = SumAdjacentDigits(numbers);
                 pyramidStructure.Add(new JArray(newRow));
