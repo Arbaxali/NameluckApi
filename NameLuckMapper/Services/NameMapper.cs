@@ -23,7 +23,7 @@ namespace NameLuckMapper.Services
 
             string input = payload.Name;
             List<int> numbers = MapLettersToNumbers(input, letterToNumberMap);
-            List<int> SumofName = SumAdjacentDigits(numbers);
+            int SumofName = GetSingleDigitSum(numbers);
             JArray pyramidStructure = new JArray();
             pyramidStructure.Add(new JArray(numbers));
             int dobSum = 0;
@@ -60,7 +60,20 @@ namespace NameLuckMapper.Services
             //Console.WriteLine("");
             //return string.Join(",", result);
         }
+         public static int GetSingleDigitSum(List<int> numbers)
+ {
+     // Calculate the sum of the numbers
+     int sum = numbers.Sum();
 
+     // Reduce the sum to a single digit
+     while (sum >= 10)
+     {
+         sum = sum.ToString().Select(c => int.Parse(c.ToString())).Sum();
+     }
+
+     return sum;
+ }
+        
         public static List<int> MapLettersToNumbers(string input, Dictionary<char, int> letterToNumberMap)
         {
             List<int> result = new List<int>();
